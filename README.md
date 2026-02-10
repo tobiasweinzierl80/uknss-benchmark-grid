@@ -149,6 +149,8 @@ wrapper scripts in the
 There are also run scripts for specific systems that may be closer to the target
 architecture in the [Grid systems directory](https://github.com/paboyle/Grid/tree/develop/systems).
 
+#### Command-line arguments
+
 Grid has many command-line interface flags that control its runtime behaviour. Identify-
 ing the optimal flags, as with the compilation options, is system-dependent and requires
 experimentation. A list of Grid flags is given by passing `--help` to `grid-benchmark`, and a
