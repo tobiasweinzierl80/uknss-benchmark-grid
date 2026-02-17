@@ -124,8 +124,10 @@ repository at:
 
 - [https://github.com/aportelli/grid-benchmark/blob/main/Readme.md]
 
+<!--
 The benchmark code uses the [pixi](https://pixi.prefix.dev/latest/) package
 manager to manage the build process for the software and its dependencies. 
+-->
 
 Example build configurations are provided for:
 
@@ -140,28 +142,38 @@ Further reference builds are available from [https://github.com/paboyle/Grid/tre
 
 ## Running the benchmark
 
+The benchmark descriptions below enlist mandatory command line flags.
+The output of the `Benchmark_Grid` code is controlled via the `--json-out` option. 
+All details to be reported are to be taken from this output file.
+
 ### Benchmark execution
 
-**Important:** For runs reporting results, the only allowed option the the `Benchmark_Grid`
-code is the `--json-out` option. Options to the underlying Grid code can be varied to find
-the best performance with the only restriction being how the MPI decomposition is specified by
-the `--mpi` option (this restriction is described in detail below). 
+Besides the mandatory flags, Grid has many command-line interface flags that control its runtime behaviour. Identifying
+the optimal flags, as with the compilation options, is system-dependent and requires
+experimentation. A list of Grid flags is given by passing `--help` to `grid-benchmark`, and a
+full list is provided for both Grid and grid-benchmark in the [grid-benchmark README](https://github.com/aportelli/grid-benchmark/).
 
+For the acceptance tests, all benchmark configurations are to be submitted via scheduler scripts.
+The scripts may contain arbitrary system and benchmark settings (e.g. additional environment variables or command line instructions),
+but have to be run on the vanilla system without any benchmark-specific reconfiguration.
+Notably, rebooting the acceptance system for a particular benchmark with particular settings is not permitted.
+
+<!--
 The submission scripts should be written to accurately allocate NUMA affinities,
 GPU indices, CPU thread indices, and any necessary environment variables (such
 as GPU-GPU communication settings, e.g. for UCX) for the specific system and software stack in
-use, using a wrapper script if necessary. There are example job submission scripts and launch 
+use, using a wrapper script if necessary. 
+-->
+
+There are example job submission scripts and launch 
 wrapper scripts in the
 [grid-benchmark systems directory](https://github.com/aportelli/grid-benchmark/tree/main/systems)).
 There are also run scripts for specific systems that may be closer to the target
 architecture in the [Grid systems directory](https://github.com/paboyle/Grid/tree/develop/systems).
 
+<!--
 #### Command-line arguments
 
-Grid has many command-line interface flags that control its runtime behaviour. Identifying
-the optimal flags, as with the compilation options, is system-dependent and requires
-experimentation. A list of Grid flags is given by passing `--help` to `grid-benchmark`, and a
-full list is provided for both Grid and grid-benchmark in the [grid-benchmark README](https://github.com/aportelli/grid-benchmark/).
 
 Important command line options:
 
@@ -188,46 +200,9 @@ Important command line options:
 A single GPU should be allocated per MPI rank (or GCD in the case of e.g. MI250X).
 The subdirectories in the [benchmark systems directory](https://github.com/aportelli/grid-benchmark/tree/main/systems)
 have example wrapper scripts for how to do this.
+-->
 
-### Required Tests
-
-- **Target configuration:** Benchmark_Grid should be run on a minimum of *128 GPU/GCD*.
-- **Reference FoM:** The reference FoM is from the CSCS Daint system using 64 GPU (16 nodes) is `*9389 Gflops/s*.
-   + [JSON ("result.json") output from the reference run](https://github.com/aportelli/grid-benchmark/blob/main/results/251124/daint/benchmark-grid-16.2128747/result.json)
-
-**Important:** For the both the baseline build and the optimised build, the projected FoM submitted 
-must give at least the same performance as the reference value.
-
-### Reference Performance on CSCS Daint
-
-To aid in testing, we provide FoM values for varying problem sizes on
-the [CSCS Daint system](https://docs.cscs.ch/clusters/daint/) below.
-Daint nodes have 4x NVIDIA GH200 per node. 
-
-In all cases, 1 MPI process per GPU was used and 72 CPU OpenMP threads
-per MPI process.
-
-| Daint nodes | Total GPU | `--mpi` option | FoM (Comparison Point Gflops/s) |
-|--:|--:|--:|--:|
-| 4 | 16 | 1.1.4.4 | 19770 |
-| 8 | 32 | 1.2.4.4 | 11198 |
-| 16 | 64 | 1.4.4.4 | 9389* |
-| 32 | 128 | 2.4.4.4 | 7388 |
-| 64 | 256 | 4.4.4.4 | 5862 |
-
-Full output from these reference runs are available at:
-[https://github.com/aportelli/grid-benchmark/tree/main/results/251124/daint]
-
-The reference FoM was determined
-by running the reference problem on 64 Daint GH200 (16 GPU nodes)
-with 1 MPI process per GPU and 72 OpenMP CPU threads per MPI process.
-and is marked by a *.
-The projected FoM (Comparison Point) for the target problem on the target system
-must not be lower than this value.
-
-## Results
-
-### Correctness and performance 
+### Correctness results 
 
 The correctness check for this package ensures that a Conjugate Gradient solve using the Dirac matrix
 matches a known analytic expression. The Conjugate Gradient solver relies on repeated applications
@@ -242,9 +217,11 @@ Failed to validate free Wilson propagator:
 ||(result - ref)||/||(result + ref)|| >= 1e-8
 ```
 
-The FoM for `Benchmark_Grid` is the comparison point sparse Dirac
+### Performance results
+
+The figure of merit (FoM) for `Benchmark_Grid` is the comparison point sparse Dirac
 matrix multiplication flop rate. This is the average of the single-precision
-Domain-wall fermion benchmarks for 24^4 and 32^4 local volumes, which are
+Domain-wall fermion benchmarks for 24^4 and 48^4 local volumes, which are
 representative of typical production runs. With `jq`, this can be extracted
 from the result JSONs as:
 
@@ -254,6 +231,7 @@ jq '.flops | .comparison_point_Gflops' path/to/json
 
 or using any other JSON-parser of choice. This is given in units of GFlops/s/node.
 
+<!--
 To be a valid figure-of-merit, the following conditions must be met:
 
 - `Grid` and `Benchmark_Grid` must be compiled with the commits stated above
@@ -280,8 +258,61 @@ provide copies of:
 - The job submission scripts and launch wrapper scripts used (if any)
 - A list of options passed to the benchmark code
 - The JSON results files from running the benchmarks
+-->
+
+## Reference data
+
+The tables below enlist reference data from existing machines. 
+Please note that these machines have a weaker interconnect (typically 200 GB/s) and use a characteristic local lattice size of 36^4.
+All data results from the baseline code without any manual tuning.
+
+### CSCS Daint
+
+To aid in testing, we provide FoM values for varying problem sizes on
+the [CSCS Daint system](https://docs.cscs.ch/clusters/daint/) below.
+Daint nodes have 4x NVIDIA GH200 per node. 
+
+In all cases, 1 MPI process per GPU was used and 72 CPU OpenMP threads
+per MPI process.
+
+| Daint nodes | Total GPU | `--mpi` option | FoM (Comparison Point Gflops/s) |
+|--:|--:|--:|--:|
+| 4 | 16 | 1.1.4.4 | 19770 |
+| 8 | 32 | 1.2.4.4 | 11198 |
+| 16 | 64 | 1.4.4.4 | 9389* |
+| 32 | 128 | 2.4.4.4 | 7388 |
+| 64 | 256 | 4.4.4.4 | 5862 |
+
+Full output from these reference runs are available at:
+[https://github.com/aportelli/grid-benchmark/tree/main/results/251124/daint]
+
+The reference FoM was determined
+by running the reference problem on 64 Daint GH200 (16 GPU nodes)
+with 1 MPI process per GPU and 72 OpenMP CPU threads per MPI process.
+and is marked by a *.
+
+<!--
+The projected FoM (Comparison Point) for the target problem on the target system
+must not be lower than this value.
+-->
+
+
 
 ## License
 
 This benchmark description and any associated files are released under the
 MIT license.
+
+
+<!--
+### Required Tests
+
+- **Target configuration:** Benchmark_Grid should be run on a minimum of *128 GPU/GCD*.
+- **Reference FoM:** The reference FoM is from the CSCS Daint system using 64 GPU (16 nodes) is `*9389 Gflops/s*.
+   + [JSON ("result.json") output from the reference run](https://github.com/aportelli/grid-benchmark/blob/main/results/251124/daint/benchmark-grid-16.2128747/result.json)
+
+**Important:** For the both the baseline build and the optimised build, the projected FoM submitted 
+must give at least the same performance as the reference value.
+
+-->
+
