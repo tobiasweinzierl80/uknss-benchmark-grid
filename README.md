@@ -39,10 +39,13 @@ All questions on the benchmark must be submitted via the procurement response me
 
 [https://github.com/aportelli/grid-benchmark](https://github.com/aportelli/grid-benchmark)
 
+
+<!--
 ### Architectures
 
 - CPU: x86, Arm
 - GPU: NVIDIA, AMD, Intel
+-->
 
 ### Languages and programming models
 
@@ -57,6 +60,7 @@ All questions on the benchmark must be submitted via the procurement response me
 - grid-benchmark repository: [c7457a8](https://github.com/aportelli/grid-benchmark/commit/c7457a85b6a0d9d1578838af11477cb41b1a5764)
 - Grid repository: [6165931](https://github.com/paboyle/Grid/commit/6165931afaa53a9885b6183ff762fc2477f30b51)
 
+Benchmarks are to 
 Any modifications made to the source code for the baseline build or the optimised build must be 
 shared as part of the offerer submission.
 
