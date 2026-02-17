@@ -60,18 +60,19 @@ All questions on the benchmark must be submitted via the procurement response me
 - grid-benchmark repository: [c7457a8](https://github.com/aportelli/grid-benchmark/commit/c7457a85b6a0d9d1578838af11477cb41b1a5764)
 - Grid repository: [6165931](https://github.com/paboyle/Grid/commit/6165931afaa53a9885b6183ff762fc2477f30b51)
 
-Benchmarks are to 
-Any modifications made to the source code for the baseline build or the optimised build must be 
+Benchmarks data are to be submitted for two code versions:
+A vanilla baseline build, where no source code is altered subject to changes enlisted below or discussed with the procurement team, 
+and an optimised build, where the benchmarking team is allowed to allow the code at will.
+In both cases, any modifications made to the source code for the baseline build or the optimised build must be 
 shared as part of the offerer submission.
 
-### Permitted modifications
-
-#### Baseline build
+### Baseline build
 
 `Benchmark_Gird` has been written with the intention that no modifications to the source code
-are required. It is also intended to be run without the need for additional CLI parameters beyond
+are required. <!--It is also intended to be run without the need for additional CLI parameters beyond
 `--json-out` and those required by Grid, although a full list of CLI options are provided in the
-[grid-benchmark README](https://github.com/aportelli/grid-benchmark/) if required. Below is a list
+[grid-benchmark README](https://github.com/aportelli/grid-benchmark/) if required.-->
+However, source code modifications might be required in few cases. Below is a list
 of permitted modifications:
 
 - Only modify the source code to resolve unavoidable compilation or runtime errors. The
@@ -81,13 +82,8 @@ of permitted modifications:
 - For compilation on systems with only ROCm 7.x and greater available, it is permitted to use
   the workaround described below as a substitute for code modification. Workarounds
   of this nature are permitted if unresolvable compilation errors otherwise occur.
-
-We place fewer restrictions on the dependencies of Grid, all of which are detailed in the
-[Grid README](https://github.com/paboyle/Grid/).
-
-- The host-code compiler must support C++17. This limits the choice of host-code compilers to
-  reasonably recent versions.
 - For NVIDIA GPUs, CUDA versions 11.x or 12.x are recommended.
+- Teams recently reported that some code parts which are not used by the benchmarking as they cover edge cases do not compile on Grace Hopper platforms. Such code in the baseline build can be removed (subject to documentation). 
 - For AMD GPUs, ROCm version 6.x is recommended since Grid is incompatible with ROCm
   version 7.x without minor code modifications. If only ROCm 7.x is available, we provide
   a workaround below.
@@ -110,13 +106,18 @@ to the `CXXFLAGS` argument passed to the `configure` command for Grid. This can 
 using a custom preset for the automatic deployment scripts for Grid and grid-benchmark as
 documented in the [grid-benchmark README](https://github.com/aportelli/grid-benchmark/).
 
-#### Optimised build
+### Optimised build
 
 Any modifications to the source code are allowed as long as they are able to be provided
 back to the community under the same licence as is used for the software package that is
 being modified.
+Any submitted benchmark must enlist a publicly visible pull/merge request issued by the benchmarking team that contains all changes, 
+i.e. the same (altered) code base as to be used for all benchmark runs.
+As a consequence, the benchmarking team is encouraged to start benchmarking using the latest software version.
+The assessment team furthermore appreciates a description of any changes implemented by the benchmarking team.
 
-### Manual build
+
+### Build instructions
 
 Detailed build instructions can be found in the benchmark source code
 repository at:
@@ -134,6 +135,8 @@ Example build configurations are provided for:
    + NVIDIA GH200 CPU+GPU, NVLink, Slingshot 11 interconnect
 - [LUMI-G (CSC, Finland)](https://docs.lumi-supercomputer.eu/hardware/lumig/): ROCm 6.0.3, AMD clang 17.0.1, HPE Cray MPICH 8.1.23 (custom)
    + AMD MI250X GPU, Infinity fabric, Slingshot 11 interconnect
+ 
+Further reference builds are available from [https://github.com/paboyle/Grid/tree/develop/systems](https://github.com/paboyle/Grid/tree/develop/systems).
 
 ## Running the benchmark
 
