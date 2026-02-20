@@ -135,7 +135,7 @@ Further reference builds are available from [https://github.com/paboyle/Grid/tre
 
 ## Running the benchmark
 
-The benchmark descriptions below enlist mandatory command line flags.
+The benchmark descriptions below specify mandatory command line flags.
 The output of the `Benchmark_Grid` code is controlled via the `--json-out` option. 
 All details to be reported are to be taken from this output file.
 
