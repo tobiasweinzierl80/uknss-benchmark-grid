@@ -230,16 +230,25 @@ Data for the following table have to be provided.
 For each and every run, the result data have to be correct (mandatory requirement). 
 Performance data feed into a weighted total average.
 
-| Command line options | Nodes/GPUs | Baseline FoM | Optimised code FoM | Comments | Min performance baseline |
+| Command line options | Nodes/GPUs | Baseline FoM | Optimised code FoM | Comments | Mandatory/desireable |
 |--:|--:|--:|--:|:--|:--|
-| ``--mpi 1.1.1.1 --max-L 48`` | 1/1 | | | Single GPU throughput | xxx |
-| ``--mpi 1.1.1.4 --max-L 48`` | 1/4 | | | Assuming a n=4 four GPU per node configuration. Otherwise, provide 1.1.1.n data. | xxx |
-| ``--mpi 1.2.4.4 --max-L 48`` | 8/32 | | | Assuming a n=4 four GPU per node configuration. Otherwise, provide 1.1.1.n data. | xxx |
-| ``--mpi 1.4.4.4 --max-L 48`` | 16/64 | | | Assuming a n=4 four GPU per node configuration. Otherwise, provide 1.1.1.n data. | xxx |
-| ``--mpi 2.4.4.4 --max-L 48`` | 32/128 | | | Assuming a n=4 four GPU per node configuration. Otherwise, provide 1.1.1.n data. | xxx |
-| ``--mpi 4.4.4.4 --max-L 48`` | 64/256 | | | Assuming a n=4 four GPU per node configuration. Otherwise, provide 1.1.1.n data. | xxx |
-| ``--mpi ... --max-L 48`` | | | | If island/subpartition with higher bandwidth is provided, pick configuration fitting to this island. | |
-| ``--mpi ... --max-L 48`` | | | | Whole system run | |
+| ``--mpi 1.1.1.1 --max-L 36`` | 1/1 | | | Single GPU throughput | M |
+| ``--mpi 1.1.1.4 --max-L 36`` | 1/4 | | | Assuming a n=4 four GPU per node configuration. Otherwise, provide 1.1.1.n data. | M |
+| ``--mpi 1.2.4.4 --max-L 36`` | 8/32 | | | Assuming a n=4 four GPU per node configuration. Otherwise, provide 1.2.4.n data. | M |
+| ``--mpi 1.4.4.4 --max-L 36`` | 16/64 | | | Assuming a n=4 four GPU per node configuration. Otherwise, provide 1.4.4.n data. | M |
+| ``--mpi 2.4.4.4 --max-L 36`` | 32/128 | | | Assuming a n=4 four GPU per node configuration. Otherwise, provide 1.4.4.n data. | M |
+| ``--mpi 4.4.4.4 --max-L 36`` | 64/256 | | | Assuming a n=4 four GPU per node configuration. Otherwise, provide 4.4.4.n data. | M |
+| ``--mpi ... --max-L 36`` | | | | If island/subpartition with higher bandwidth is provided, pick configuration fitting to this island. | D |
+| ``--mpi ... --max-L 36`` | | | | Whole system run | M |
+| ``--mpi 1.1.1.1 --max-L 48`` | 1/1 | | | Single GPU throughput | D |
+| ``--mpi 1.1.1.4 --max-L 48`` | 1/4 | | | See above. | D |
+| ``--mpi 1.2.4.4 --max-L 48`` | 8/32 | | | See above. | D |
+| ``--mpi 1.4.4.4 --max-L 48`` | 16/64 | | | See above. | D |
+| ``--mpi 2.4.4.4 --max-L 48`` | 32/128 | | | See above. | D |
+| ``--mpi 4.4.4.4 --max-L 48`` | 64/256 | | | See above. | D |
+| ``--mpi ... --max-L 48`` | | | | If island/subpartition with higher bandwidth is provided, pick configuration fitting to this island. | D |
+| ``--mpi ... --max-L 48`` | | | | Whole system run | D |
+
 
 
 <!--
