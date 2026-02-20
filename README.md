@@ -7,19 +7,18 @@ contributors available at [https://github.com/aportelli/grid-benchmark/graphs/co
 The benchmark uses the underpinning Grid C++ 17 library for lattice QCD applications.
 
 Note: the repository contains two benchmarks: Benchmark_Grid and Benchmark_IO. Only
-Benchmark_Grid is subject of discussion here. It is a sparse Dirac matrix performance benchmark 
-which also performs a correctness check.
+Benchmark_Grid is subject of discussion here. 
 
-<!--
-In summary, Benchmark_Grid benchmarks three discretisations of the Dirac matrix: "Wilson",
-"domain-wall" (or DWF4), and "staggered". For benchmarking purposes, the only differences
+In summary, Benchmark_Grid benchmarks three discretisations of the Dirac matrix. <!--
+ "Wilson", "domain-wall" (or DWF4), and "staggered". For benchmarking purposes, the only differences
 between these discretisations is the flop count per Dirac matrix application and that domain-wall
 has an additional local dimension of size Ls = 12, increasing its memory requirements. The sparse
 Dirac matrix benchmark is ran for five problem sizes, each of which assigns a 4D array to each MPI
 rank, referred to as the local lattice size or local volume. These are 8^4, 12^4, 16^4, 24^4, and
-32^4. Since the local volumes are fixed, increasing the number of MPI ranks corresponds to a
+32^4. -->
+The sparse Dirac matrix benchmark assigns a 4D array to each MPI rank/GPU, referred to as the local lattice size or local volume.
+Since the local volumes are fixed, increasing the number of MPI ranks corresponds to a
 weak scaling of the benchmark.
--->
 
 ## Status
 
