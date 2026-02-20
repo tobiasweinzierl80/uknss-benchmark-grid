@@ -1,4 +1,4 @@
-# UK NSS Grid benchmark
+e# UK NSS Grid benchmark
 
 
 Grid_Benchmark is the benchmarking package, available at [https://github.com/aportelli/grid-benchmark].
@@ -285,7 +285,7 @@ provide copies of:
 ## Reference data
 
 The tables below list reference data from existing systems. 
-Please note that these machines have a weaker interconnect (typically 200 GB/s) and use a characteristic local lattice size of 36^4.
+Please note that these machines have a weaker interconnect (typically 200 GB/s) and use a characteristic local lattice size of 32^4.
 All data results from the baseline code without any manual tuning.
 
 ### CSCS Daint
